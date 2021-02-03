@@ -54,20 +54,17 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
 
-        //set our current level to 0
         levelIndex = 0;
     }
 
     public void StartGame()
     {
-        //remove the start screen
         startMenu.SetActive(false);
 
         InitializeMap();
 
         InitializeCharacter();
 
-        //Tell the character their goal position
         character.SetTargetPosition(solver.endCoordinates);
 
         isGameStarted = true;
@@ -79,11 +76,9 @@ public class GameManager : MonoBehaviour
         //generate the maze
         mazeGenerator.ReadMaze(mazePath[levelIndex]);
 
-        //set the height and width of the maze
         height = mazeGenerator.height;
         width = mazeGenerator.width;
 
-        //create a new maze tile list
         maze = new GameObject[width, height];
 
         //begin find the solution for the maze
@@ -100,16 +95,13 @@ public class GameManager : MonoBehaviour
         startPosition = solver.startCoordinates;
         newCharacter.transform.position = startPosition;
 
-        //get access to the character's mover script
         character = newCharacter.GetComponent<SpriteMover>();
     }
 
     void NextLevel()
     {
-        //set our level to the next one
         levelIndex++;
 
-        //destroy the character
         Destroy(character.gameObject);
         character = null;
 
@@ -123,22 +115,18 @@ public class GameManager : MonoBehaviour
         InitializeMap();
         InitializeCharacter();
 
-        //set the correct music
         audioSource.clip = levelMusic[levelIndex];
     }
 
     public void PlayNextLevel()
     {
-        //turn off our end stage UI
         endMenu.SetActive(false);
 
-        //play the level music
         audioSource.Play();
 
         //set the character's target position
         character.SetTargetPosition(solver.endCoordinates);
 
-        //start the game
         isGameStarted = true;
     }
 
@@ -171,6 +159,7 @@ public class GameManager : MonoBehaviour
     public void MainMenu()
     {
         //turn off any UI that isn't the main menu if there is one on
+
         if(endMenu.activeSelf)
         {
             endMenu.SetActive(false);
@@ -198,7 +187,6 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1;
         }
         
-        //play the menu music
         audioSource.clip = menuMusic;
         audioSource.Play();
     }
@@ -208,13 +196,11 @@ public class GameManager : MonoBehaviour
         //pause the game
         Time.timeScale = 0;
 
-        //bring up the pause menu
         pauseMenu.SetActive(true);
     }
 
     public void UnpauseGame()
     {
-        //turn off the pause menu
         pauseMenu.SetActive(false);
 
         //unpause the game
@@ -226,7 +212,6 @@ public class GameManager : MonoBehaviour
         //when the player finishes the last maze
         gameOverMenu.SetActive(true);
 
-        //play menu music
         audioSource.clip = menuMusic;
         audioSource.Play();
     }
@@ -249,18 +234,15 @@ public class GameManager : MonoBehaviour
                 
                 isGameStarted = false;
 
-                //activate our end stage UI
                 endMenu.SetActive(true);
                
                 //if we are level 0, 1, 2 or 3
                 if(levelIndex < 4)
                 {
-                    //go to the next level
                     NextLevel();
                 }
                 else
                 {
-                    //end the game, you win!
                     YouWin();
                 }
                 

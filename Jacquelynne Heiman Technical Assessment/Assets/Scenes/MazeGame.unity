@@ -2975,15 +2975,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb870293d50de4e4998654ae4655bfab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maze: 
+  height: 0
+  width: 0
   wallPrefab: {fileID: 4250343994478097084, guid: c0b1731d5e30ddd4aae88c23fd2a981b,
     type: 3}
   floorPrefab: {fileID: 8508203967853816731, guid: e979cacc8875fd846a1e7144195d23c7,
     type: 3}
-  solver: {fileID: 1959364209}
   cameraScaler: {fileID: 193811246}
-  maze: 
-  height: 0
-  width: 0
 --- !u!4 &1959364208
 Transform:
   m_ObjectHideFlags: 0
